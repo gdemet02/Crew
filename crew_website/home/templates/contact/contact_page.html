@@ -1,0 +1,221 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+<section class="page-header page-header-modern page-header-background page-header-background-md parallax overlay overlay-color-dark overlay-show overlay-op-5 mt-0"
+         data-plugin-parallax data-plugin-options="{'speed': 1.2}"
+         data-image-src="{% if page.background_image %}{% image page.background_image fill-1920x600 as bg %}{{ bg.url }}{% else %}{% static 'img/page-header/page-header-parallax.jpg' %}{% endif %}">
+    <div class="container">
+    </div>
+</section>
+
+<div class="container">
+    <div class="row py-4">
+        <div class="col-lg-7 appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="650">
+            {% if arrResult %}
+                {% if arrResult.response == "success" %}
+                    <div class="alert alert-success">
+                        <strong>Success!</strong> {{ page.thank_you_text|richtext }}
+                    </div>
+                {% elif arrResult.response == "error" %}
+                    <div class="alert alert-danger">
+                        <strong>Error!</strong> There was an error sending your message.
+                        <span class="font-size-xs mt-2 d-block">{{ arrResult.errorMessage }}</span>
+                    </div>
+                {% endif %}
+            {% endif %}
+
+            <h2 class="font-weight-bold text-7 mt-2 mb-0">{{ page.title }}</h2>
+            <p class="mb-4">{{ page.intro|richtext }}</p>
+
+            <form id="contactFormAdvanced" action="{% pageurl page %}#contact-sent" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="hidden" name="emailSent" value="true">
+                <form id="contactFormAdvanced" action="{% pageurl page %}#contact-sent" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="hidden" name="emailSent" value="true">
+
+    <div class="row">
+        <div class="form-group col-md-6">
+            <label class="form-label mb-1 text-2">Full Name</label>
+            <input type="text" class="form-control" name="name" required>
+        </div>
+        <div class="form-group col-md-6">
+            <label class="form-label mb-1 text-2">Email Address</label>
+            <input type="email" class="form-control" name="email" required>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-12">
+            <label class="form-label mb-1 text-2">Subject</label>
+            <select class="form-control" name="subject" required>
+                <option value="">...</option>
+                <option value="Option 1">Option 1</option>
+                <option value="Option 2">Option 2</option>
+                <option value="Option 3">Option 3</option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-6">
+            <p class="mb-2">Checkboxes</p>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" name="checkboxes[]" type="checkbox" value="option1"> 1
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" name="checkboxes[]" type="checkbox" value="option2"> 2
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" name="checkboxes[]" type="checkbox" value="option3"> 3
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <p class="mb-2">Radios</p>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="radios" value="option1"> 1
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="radios" value="option2"> 2
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="radios" value="option3"> 3
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-12">
+            <label class="form-label mb-1 text-2">Attachment</label>
+            <input type="file" class="form-control d-block" name="attachment">
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-12 mb-4">
+            <label class="form-label mb-1 text-2">Message</label>
+            <textarea rows="6" class="form-control" name="message" required></textarea>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-12 mb-5">
+            <input type="submit" class="btn btn-primary btn-modern pull-right" value="Send Message">
+        </div>
+    </div>
+</form>
+
+            </form>
+        </div>
+
+        <div class="col-lg-5">
+            <div class="overflow-hidden mb-1">
+                <h4 class="text-primary mb-0 appear-animation" data-appear-animation="maskUp" data-appear-animation-delay="200">Get in <strong>Touch</strong></h4>
+            </div>
+            <div class="overflow-hidden mb-3">
+                <p class="lead text-4 mb-0 appear-animation" data-appear-animation="maskUp" data-appear-animation-delay="400">{{ page.intro|richtext }}</p>
+            </div>
+            <div class="appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="800">
+                <h4 class="text-primary pt-5">Our <strong>Office</strong></h4>
+                <ul class="list list-icons list-icons-style-3 mt-2">
+                    {% if page.office_address %}
+                        <li><i class="fas fa-map-marker-alt top-6"></i> <strong>Address:</strong> {{ page.office_address }}</li>
+                    {% endif %}
+                    {% if page.office_phone %}
+                        <li><i class="fas fa-phone top-6"></i> <strong>Phone:</strong> {{ page.office_phone }}</li>
+                    {% endif %}
+                    {% if page.office_email %}
+                        <li><i class="fas fa-envelope top-6"></i> <strong>Email:</strong> <a href="mailto:{{ page.office_email }}">{{ page.office_email }}</a></li>
+                    {% endif %}
+                </ul>
+                <h4 class="text-primary pt-5">Business <strong>Hours</strong></h4>
+                    {% if page.business_hours %}
+                        <div class="mt-2">
+                            {{ page.business_hours|richtext }}
+                        </div>
+                    {% else %}
+                        <p class="text-muted">Business hours not set yet.</p>
+                    {% endif %}
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="googlemaps" class="google-map m-0" style="height: 650px;"></div>
+
+			</div>
+		</div>
+
+		<!-- Vendor -->
+		<script src="vendor/plugins/js/plugins.min.js"></script>
+
+		<!-- Theme Base, Components and Settings -->
+		<script src="js/theme.js"></script>
+
+		<!-- Theme Custom -->
+		<script src="js/custom.js"></script>
+
+		<!-- Theme Initialization Files -->
+		<script src="js/theme.init.js"></script>
+
+	<!-- Current Page Vendor and Views -->
+		<script src="js/views/view.contact.js"></script>
+
+		<!-- Google Maps -->
+		<script>
+			/* 
+			Map Markers:
+			- Get an API Key: https://developers.google.com/maps/documentation/javascript/get-api-key
+			- Generate Map Id: https://console.cloud.google.com/google/maps-apis/studio/maps
+			- Use https://www.latlong.net/convert-address-to-lat-long.html to get Latitude and Longitude of a specific address
+			*/
+			(g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})
+				({key: "AIzaSyD2E006Uc7x_hPYGNEgRdP2aYAb1EYJxsE", v: "weekly"});
+
+			async function initMap() {
+				const { Map, InfoWindow } = await google.maps.importLibrary("maps");
+				const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary(
+					"marker",
+				);
+
+				const map = new Map(document.getElementById("googlemaps"), {
+					zoom: 5,
+					center: { lat: 37.09024, lng: -95.71289 },
+				});
+
+				const markers = [
+					{
+						position: { lat: 40.77459324309514, lng: -73.9656499056956 },
+						title: "Office 1<br>5th Ave, New York<br>NY 10021, USA<br>Phone: 123-456-1234",
+					},
+					{
+						position: { lat: 37.74896397324552, lng: -122.47577402763315 },
+						title: "Office 2<br>19th Ave, San Francisco<br>CA 94116, USA<br>Phone: 123-456-1234",
+					},
+				];
+
+				const infoWindow = new InfoWindow();
+
+				markers.forEach(({ position, title }, i) => {
+					const pin = new PinElement({
+						background: "#e36159",
+						borderColor: "#e36159",
+						glyphColor: "#FFF",
+					});
+					const marker = new AdvancedMarkerElement({
+						position,
+						map,
+						title: `${title}`,
+						content: pin.element,
+					});
+
+					marker.addListener("click", ({ domEvent, latLng }) => {
+						const { target } = domEvent;
+
+						infoWindow.close();
+						infoWindow.setContent(marker.title);
+						infoWindow.open(marker.map, marker);
+					});
+				});
+			}
+
+			initMap();	
+		</script>
+{% endblock %}

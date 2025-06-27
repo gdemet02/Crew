@@ -1,0 +1,48 @@
+{% load wagtailimages_tags %}
+
+<div class="container container-xl-custom py-5 my-5">
+  <div class="row justify-content-center">
+    <div class="col-xl-8 text-center mb-4">
+      <h2 class="font-weight-bold text-8 mb-3 appear-animation" data-appear-animation="fadeIn">
+        {{ self.heading }}
+      </h2>
+      {% if self.subheading %}
+        <p class="line-height-9 text-4 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
+          <span class="opacity-7">{{ self.subheading }}</span>
+        </p>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="row">
+    {% for item in self.solutions %}
+      <div class="{% if forloop.counter <= 2 %}col-md-6{% else %}col-md-4{% endif %} mb-2 pb-2 px-2 appear-animation"
+           data-appear-animation="{% cycle 'fadeInRightShorter' 'fadeInLeftShorter' 'fadeInUpShorter' %}"
+           data-appear-animation-delay="{{ forloop.counter0|add:"1" }}00">
+
+        <span class="thumb-info thumb-info-no-borders thumb-info-no-borders-rounded thumb-info-centered-info thumb-info-no-zoom thumb-info-slide-info-hover">
+          <span class="thumb-info-wrapper thumb-info-wrapper-no-opacity {% if forloop.counter > 2 %}force-tall{% endif %}">
+
+            {% image item.image fill-600x300 class="img-fluid" alt=item.image.title %}
+
+            <span class="thumb-info-title">
+              <span class="thumb-info-slide-info-hover-1">
+                <span class="thumb-info-inner text-4">{{ item.title }}</span>
+              </span>
+              <span class="thumb-info-slide-info-hover-2">
+                <span class="thumb-info-inner text-2">
+                  <a href="{{ item.link }}" class="d-inline-flex align-items-center btn btn-light text-color-dark font-weight-bold px-4 btn-py-2 text-1 rounded">
+                    {{ item.button_text|default:"Learn More" }}
+                    <i class="fa fa-arrow-right ms-2 ps-1 text-3"></i>
+                  </a>
+                </span>
+              </span>
+            </span>
+
+          </span>
+        </span>
+
+      </div>
+    {% endfor %}
+  </div>
+</div>

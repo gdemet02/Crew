@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+    {% for block in page.body %}
+        {% if block.block_type == 'page_header' %}
+            <section class="page-header page-header-classic page-header-sm">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8 order-2 order-md-1 align-self-center p-static">
+                            <h1 data-title-border>{{ block.value.title }}</h1>
+                        </div>
+                        <div class="col-md-4 order-1 order-md-2 align-self-center">
+                            <ul class="breadcrumb d-block text-md-end">
+                                <li><a href="/">Home</a></li>
+                                <li class="active">{{ block.value.breadcrumb }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+                {% elif block.block_type == 'who_we_are' %}
+            <section class="section-default my-5">
+                <div class="container py-4">
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            <div class="owl-carousel owl-theme" data-plugin-options='{"items": 1, "margin": 10, "loop": true, "autoplay": true, "autoplayTimeout": 5000, "dots": true, "nav": false}'>
+                                {% for image in block.value.carousel_images %}
+                                    {% image image original as img %}
+                                    <div><img class="img-fluid" src="{{ img.url }}" alt=""></div>
+                                {% endfor %}
+                            </div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <h2 class="text-7 mb-3">{{ block.value.heading }}</h2>
+                            <div class="text-4">{{ block.value.text|richtext }}</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        {% elif block.block_type == 'toggle_section' %}
+            <section class="section-default my-5">
+                <div class="container">
+                    <div class="toggle toggle-primary toggle-simple m-0" data-plugin-toggle>
+                        {% for item in block.value %}
+                            <section class="toggle {% if forloop.first %}active mt-0{% endif %}">
+                                <a class="toggle-title">{{ item.title }}</a>
+                                <div class="toggle-content">
+                                    {{ item.content|richtext }}
+                                </div>
+                            </section>
+                        {% endfor %}
+                    </div>
+                </div>
+            </section>
+
+        {% elif block.block_type == 'team_section' %}
+            <section class="section-default my-5">
+                <div class="container py-4">
+                    <div class="row text-center pb-4">
+                        <div class="col">
+                            <h2 class="text-7">Meet <strong>Our Team</strong></h2>
+                        </div>
+                    </div>
+                    <div class="row pb-4 mb-2">
+                        {% for member in block.value %}
+                            <div class="col-sm-6 col-lg-3 mb-4">
+                                <span class="thumb-info border-radius-0">
+                                    <span class="thumb-info-wrapper">
+                                        {% image member.image original as team_img %}
+                                        <img src="{{ team_img.url }}" class="img-fluid" alt="{{ member.name }}">
+                                        <span class="thumb-info-title">
+                                            <span class="thumb-info-inner">{{ member.name }}</span>
+                                            <span class="thumb-info-type">{{ member.role }}</span>
+                                        </span>
+                                    </span>
+                                    <span class="thumb-info-caption">
+                                        <p>{{ member.description }}</p>
+                                        <span class="thumb-info-social-icons">
+                                            {% if member.facebook %}
+                                                <a href="{{ member.facebook }}"><i class="fab fa-facebook-f"></i></a>
+                                            {% endif %}
+                                            {% if member.twitter %}
+                                                <a href="{{ member.twitter }}"><i class="fab fa-x-twitter"></i></a>
+                                            {% endif %}
+                                            {% if member.linkedin %}
+                                                <a href="{{ member.linkedin }}"><i class="fab fa-linkedin-in"></i></a>
+                                            {% endif %}
+                                        </span>
+                                    </span>
+                                </span>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </section>
+
+        {% elif block.block_type == 'logos_carousel' %}
+            <div class="container">
+                <div class="row py-5 my-5">
+                    <div class="col">
+                        <div class="owl-carousel owl-theme">
+                            {% for logo in block.value %}
+                                {% image logo original as logo_img %}
+                                <div><img class="img-fluid opacity-2" src="{{ logo_img.url }}" alt=""></div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        {% endif %}
+    {% endfor %}
+{% endblock %}

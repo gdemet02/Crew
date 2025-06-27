@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags static %}
+
+{% block content %}
+    {% for block in page.body %}
+        {% if block.block_type == 'hero_section' %}
+            <section class="page-header page-header-modern page-header-background page-header-background-md overlay overlay-color-dark overlay-show overlay-op-7" style="background-image: url('{% image block.value.background_image fill-1920x1080 as bg %}{{ bg.url }}');">
+                <div class="container">
+                    <div class="row mt-5">
+                        <div class="col-md-12 align-self-center p-static order-2 text-center">
+                            <h1>{{ block.value.heading }}</h1>
+                            <p class="text-light">{{ block.value.subheading }}</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        {% elif block.block_type == 'tab_section' %}
+            <div class="container py-2">
+                <div class="row">
+                    <div class="col">
+                        <div class="tabs tabs-bottom tabs-center tabs-simple">
+                            <ul class="nav nav-tabs" role="tablist">
+                                {% for tab in block.value %}
+                                    <li class="nav-item {% if forloop.first %}active{% endif %}" role="presentation">
+                                        <a class="nav-link {% if forloop.first %}active{% endif %}" href="#tab{{ forloop.counter }}" data-bs-toggle="tab" role="tab">
+                                            <span class="featured-boxes featured-boxes-style-6 p-0 m-0">
+                                                <span class="featured-box featured-box-primary featured-box-effect-6 p-0 m-0">
+                                                    <span class="box-content p-0 m-0">
+                                                        {% if tab.icon_image %}
+                                                            {% image tab.icon_image fill-80x80 as icon_img %}
+                                                            <img src="{{ icon_img.url }}" alt="{{ tab.label }}" class="tab-icon-img">
+                                                        {% else %}
+                                                            <i class="icon-featured {{ tab.icon }}"></i>
+                                                        {% endif %}
+
+                                                    </span>
+                                                </span>
+                                            </span>
+                                            <p class="mb-0 pb-0">{{ tab.label }}</p>
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+
+                            <div class="tab-content">
+                                {% for tab in block.value %}
+                                    <div class="tab-pane {% if forloop.first %}active show{% endif %}" id="tab{{ forloop.counter }}" role="tabpanel">
+                                        <div class="row align-items-center pt-5 pb-3">
+                                            <div class="col-md-8 pe-md-5 mb-5 mb-md-0">
+                                                <h2 class="font-weight-normal text-6 mb-3"><strong class="font-weight-extra-bold">{{ tab.heading }}</strong></h2>
+                                                <p class="text-4">{{ tab.description }}</p>
+                                            </div>
+                                            <div class="col-md-4 px-5 px-md-3">
+                                                {% image tab.image original as img %}
+                                                <img class="img-fluid scale-2 my-4" src="{{ img.url }}" alt="{{ tab.heading }}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr class="solid my-5">
+            </div>
+
+        {% elif block.block_type == 'cta_section' %}
+            <div class="container py-5">
+                <div class="row align-items-center py-4">
+                    <div class="col-lg-9">
+                        <div class="call-to-action-content">
+                            <h2 class="font-weight-normal text-7 mb-3">
+                                {{ block.value.heading }} <br>
+                                <span class="text-dark">{{ block.value.subheading }}</span>
+                            </h2>
+                            {% if block.value.description %}
+                                <p class="mb-2"><strong>{{ block.value.description }}</strong></p>
+                            {% endif %}
+                            <ul class="list-unstyled ps-3 mb-0">
+                                {% for feature in block.value.features %}
+                                    <li class="mb-1"><i class="fa fa-check-circle text-primary me-2"></i>{{ feature }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 text-center text-lg-end mt-4 mt-lg-0">
+                        <a href="{{ block.value.button_link }}" target="_blank" class="btn btn-dark btn-lg text-3 font-weight-semibold px-4 py-3">
+                            {{ block.value.button_text }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        {% elif block.block_type == 'footer' %}
+            <footer>
+                {{ block.value|safe }}
+            </footer>
+
+        {% else %}
+            {% include_block block %}
+        {% endif %}
+    {% endfor %}
+{% endblock %}

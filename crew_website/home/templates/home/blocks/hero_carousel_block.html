@@ -1,0 +1,40 @@
+{% load wagtailimages_tags %}
+
+<div id="home" class="owl-carousel owl-carousel-light owl-theme mb-0" data-plugin-options="{'autoplayTimeout': 7000, 'autoplay': true}" style="height: 100vh;">
+    <div class="owl-stage-outer">
+        <div class="owl-stage">
+            {% for slide in self.images %}
+                <div class="owl-item position-relative">
+                    {% image slide.image fill-1920x1080 as bg_img %}
+                    <div class="background-image-wrapper position-absolute top-0 left-0 right-0 bottom-0 animated kenBurnsToRightTop"
+                         style="background-image: url('{{ bg_img.url }}'); background-size: cover; background-position: center; animation-duration: 20s;">
+                    </div>
+                    <div class="container position-relative z-index-3 h-100">
+                        <div class="row justify-content-center align-items-center h-100">
+                            <div class="col-lg-7 text-center mb-4 pb-5 pb-lg-0">
+                                <h2 class="text-color-light font-weight-semibold text-3 mb-1 appear-animation"
+                                    data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1000">
+                                    PORTO AGENCY - NEW YORK / NY
+                                </h2>
+                                <h1 class="text-color-light font-weight-bold text-11 line-height-1 mb-3 appear-animation"
+                                    data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1200">
+                                    Creative Web Design
+                                </h1>
+                                <p class="text-4 text-color-grey pb-3 mb-4 appear-animation"
+                                   data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1400">
+                                    Porto is simply the best choice for your new website.
+                                </p>
+                                <a href="#who-we-are"
+                                   class="btn btn-gradient custom-btn-effect-1 btn-px-5 btn-py-3 appear-animation"
+                                   data-hash data-hash-offset="0" data-hash-offset-lg="32"
+                                   data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1600">
+                                    GET STARTED
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

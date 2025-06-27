@@ -1,0 +1,63 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% if header %}
+    {% for block in header %}
+        {% if block.block_type == 'header' %}
+            {% with data=block.value %}
+                <header id="header" class="header-effect-shrink" data-plugin-options='{"stickyEnabled": true, "stickyEffect": "shrink", "stickyStartAt": 1, "stickySetTop": "0"}'>
+                    <div class="header-body border-top-0">
+                        <div class="header-container container">
+                            <div class="header-row">
+                                <div class="header-column">
+                                    <div class="header-logo">
+                                        {% image data.logo original as logo_img %}
+                                        <a href="/"><img alt="Logo" height="50" style="position: relative; top: -10px;" src="{{ logo_img.url }}"></a>
+                                    </div>
+                                </div>
+                                <div class="header-column justify-content-end">
+                                    <div class="header-nav">
+                                        <div class="header-nav-main header-nav-main-effect-1 header-nav-main-sub-effect-1">
+                                            <nav class="collapse">
+                                                <ul class="nav nav-pills" id="mainNav">
+                                                    {% for item in data.nav_items %}
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" href="{{ item.url }}">
+                                                                {{ item.label }}
+                                                            </a>
+                                                        </li>
+                                                    {% endfor %}
+                                                    {% if data.solutions_dropdown %}
+                                                        <li class="nav-item dropdown">
+                                                            <a class="nav-link dropdown-toggle" href="#">
+                                                                {{ data.solutions_dropdown.title }}
+                                                            </a>
+                                                            <ul class="dropdown-menu">
+                                                                {% for solution in data.solutions_dropdown.items %}
+                                                                    <li>
+                                                                        <a class="dropdown-item" href="{{ solution.url }}">{{ solution.label }}</a>
+                                                                    </li>
+                                                                {% endfor %}
+                                                                {% for page in marketing_pages %}
+                                                                    <li>
+                                                                        <a class="dropdown-item" href="{{ page.url }}">{{ page.title }}</a>
+                                                                    </li>
+                                                                {% endfor %}
+                                                            </ul>
+                                                        </li>
+                                                    {% endif %}
+                                                </ul>
+                                            </nav>
+                                        </div>
+                                        <button class="btn header-btn-collapse-nav" data-bs-toggle="collapse" data-bs-target=".header-nav-main nav">
+                                            <i class="fas fa-bars"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+            {% endwith %}
+        {% endif %}
+    {% endfor %}
+{% endif %}

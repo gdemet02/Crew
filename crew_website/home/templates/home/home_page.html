@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailimages_tags wagtailuserbar %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/demos/demo-one-page-agency.css' %}">
+  <link rel="stylesheet" href="{% static 'css/skins/skin-one-page-agency.css' %}">
+{% endblock %}
+
+{% block content %}
+  <div class="position-relative">
+    <div class="d-none d-sm-block position-absolute top-50pct transform3dy-n50 right-15 z-index-3 pe-3">
+      <ul class="d-flex flex-column social-icons social-icons-clean social-icons-icon-light social-icons-medium">
+        <li class="social-icons-insßtagram">
+          <a href="http://www.instagram.com/" class="text-color-quaternary" target="_blank" title="Instagram">
+            <i class="fab fa-instagram"></i>
+          </a>
+        </li>
+        <li class="social-icons-x my-2">
+          <a href="http://www.twitter.com/" class="text-color-quaternary" target="_blank" title="Twitter">
+            <i class="fab fa-x-twitter"></i>
+          </a>
+        </li>
+        <li class="social-icons-facebook">
+          <a href="http://www.facebook.com/" class="text-color-quaternary" target="_blank" title="Facebook">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div id="home" class="owl-carousel owl-carousel-light owl-carousel-light-init-fadeIn owl-theme manual custom-dots-style-1 dots-inside dots-horizontal-center show-dots-hover show-dots-xs dots-light nav-style-1 nav-inside nav-inside-plus nav-light nav-md nav-font-size-md show-nav-hover mb-0" data-plugin-options="{'autoplayTimeout': 7000, 'autoplay': false}" style="height: 100vh;">
+      <div class="owl-stage-outer">
+        <div class="owl-stage">
+          {% for block in page.body %}
+            {% if block.block_type == 'hero_carousel' %}
+              {% for slide in block.value %}
+                <div class="owl-item position-relative">
+                  {% image slide.image fill-1920x1080 as bg_img %}
+                  <div class="background-image-wrapper position-absolute top-0 left-0 right-0 bottom-0 animated kenBurnsToRightTop"
+                       style="background-image: url('{{ bg_img.url }}'); background-size: cover; background-position: center; animation-duration: 20s;">
+                  </div>
+                  <div class="container position-relative z-index-3 h-100">
+                    <div class="row justify-content-center align-items-center h-100">
+                      <div class="col-lg-7 text-center mb-4 pb-5 pb-lg-0">
+                        <h1 class="text-color-light font-weight-bold text-11 text-sm-13 text-md-14 line-height-1 position-relative mb-3 pb-1 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1200">
+                          Crew
+                        </h1>
+                        <a href="#who-we-are" class="btn btn-gradient custom-btn-effect-1 custom-border-radius-1 d-inline-flex align-items-center font-weight-semibold text-3-5 btn-px-5 btn-py-3 appear-animation"
+                           data-hash data-hash-offset="0" data-hash-offset-lg="32" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1600" data-appear-animation-duration="1.7s">
+                          GET STARTED
+                          <img width="15" height="15" src="{% static 'img/demos/one-page-agency/icons/arrow-down.svg' %}" alt=""
+                               data-icon data-plugin-options="{'onlySVG': true, 'removeClassAfterInit': 'fadeIn', 'extraClass': 'svg-fill-color-light position-relative bottom-1 ms-4'}" />
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container container-xl-custom py-5 my-5">
+    <div class="row justify-content-center">
+      <div class="col-md-10 px-lg-5">
+        <div class="row">
+          <div class="container container-xl-custom py-5 my-5">
+            {% for block in page.body %}
+              {% if block.block_type != 'hero_carousel' and block.value %}
+                {% include_block block %}
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block extra_js %}
+  <script src="{% static 'js/views/view.contact.js' %}"></script>
+  <script src="{% static 'js/demos/demo-one-page-agency.js' %}"></script>
+{% endblock %}

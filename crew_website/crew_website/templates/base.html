@@ -1,0 +1,88 @@
+{% load static wagtailcore_tags wagtailuserbar wagtailimages_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>
+        {% block title %}
+            {% if page.seo_title %}{{ page.seo_title }}{% else %}{{ page.title }}{% endif %}
+        {% endblock %}
+        {% block title_suffix %}
+            {% wagtail_site as current_site %}
+            {% if current_site and current_site.site_name %} - {{ current_site.site_name }}{% endif %}
+        {% endblock %}
+    </title>
+
+    {% if page.search_description %}
+        <meta name="description" content="{{ page.search_description }}" />
+    {% endif %}
+
+    {% if request.in_preview_panel %}
+        <base target="_blank">
+    {% endif %}
+
+    <!-- Web Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800%7CShadows+Into+Light&display=swap" rel="stylesheet">
+
+    <!-- Vendor CSS -->
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/fontawesome-free/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/animate/animate.compat.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/simple-line-icons/css/simple-line-icons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/owl.carousel/assets/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/owl.carousel/assets/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/magnific-popup/magnific-popup.min.css' %}">
+
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="{% static 'css/theme.css' %}">
+    <link rel="stylesheet" href="{% static 'css/theme-elements.css' %}">
+    <link rel="stylesheet" href="{% static 'css/theme-blog.css' %}">
+    <link rel="stylesheet" href="{% static 'css/theme-shop.css' %}">
+
+    <!-- Skin CSS -->
+    <link rel="stylesheet" href="{% static 'css/skins/default.css' %}">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body class="{% block body_class %}{% endblock %}" data-plugin-page-transition>
+    {% wagtailuserbar %}
+
+    {% comment %} ---------- GLOBAL HEADER ---------- {% endcomment %}
+    {% if global_header %}
+        {% include "home/header.html" with header=global_header marketing_pages=marketing_pages %}
+    {% endif %}
+
+
+    <div class="body">
+        <main role="main" class="main">
+            {% block content %}{% endblock %}
+        </main>
+
+        {% comment %} ---------- GLOBAL FOOTER ---------- {% endcomment %}
+        {% if global_footer %}
+            <footer>
+                {% for block in global_footer %}
+                    {% include_block block %}
+                {% endfor %}
+            </footer>
+        {% endif %}
+
+    </div>
+
+    <!-- Vendor JS -->
+    <script src="{% static 'vendor/plugins/js/plugins.min.js' %}"></script>
+    <script src="{% static 'js/theme.js' %}"></script>
+    <script src="{% static 'js/views/view.home.js' %}"></script>
+    <script src="{% static 'js/custom.js' %}"></script>
+    <script src="{% static 'js/theme.init.js' %}"></script>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

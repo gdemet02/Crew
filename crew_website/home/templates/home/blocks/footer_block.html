@@ -1,0 +1,52 @@
+{% load wagtailimages_tags %}
+
+<footer id="footer">
+    <div class="container">
+        <div class="position-relative mb-3">
+            <div class="footer-ribbon">
+                <span>Get in Touch</span>
+            </div>
+        </div>
+        <div class="row py-5 my-4">
+            <div class="col-md-6 mb-4 mb-lg-0">
+                {% if value.logo %}
+                    {% image value.logo height-32 as logo_img %}
+                    <img src="{{ logo_img.url }}" alt="{{ logo_img.alt }}" class="opacity-7 bottom-4" height="32">
+                {% endif %}
+                <p class="mt-2 mb-2">{{ value.description }}</p>
+                {% if value.view_more_link %}
+                    <p class="mb-0"><a href="{{ value.view_more_link }}" class="btn-flat btn-xs text-color-light"><strong class="text-2">VIEW MORE</strong><i class="fas fa-angle-right p-relative top-1 ps-2"></i></a></p>
+                {% endif %}
+            </div>
+            <div class="col-md-6">
+                <h5 class="text-3 mb-3">CONTACT US</h5>
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul class="list list-icons list-icons-lg">
+                            <li class="mb-1"><i class="far fa-dot-circle text-color-primary"></i><p class="m-0">{{ value.address }}</p></li>
+                            <li class="mb-1"><i class="fab fa-whatsapp text-color-primary"></i><p class="m-0"><a href="tel:{{ value.phone }}">{{ value.phone }}</a></p></li>
+                            <li class="mb-1"><i class="far fa-envelope text-color-primary"></i><p class="m-0"><a href="mailto:{{ value.email }}">{{ value.email }}</a></p></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <ul class="list list-icons list-icons-sm">
+                            <li><i class="fas fa-angle-right"></i><a href="{{ value.link_1.url }}" class="link-hover-style-1 ms-1"> {{ value.link_1.label }}</a></li>
+                            <li><i class="fas fa-angle-right"></i><a href="{{ value.link_2.url }}" class="link-hover-style-1 ms-1"> {{ value.link_2.label }}</a></li>
+                            <li><i class="fas fa-angle-right"></i><a href="{{ value.link_3.url }}" class="link-hover-style-1 ms-1"> {{ value.link_3.label }}</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright footer-copyright-style-2">
+        <div class="container py-2">
+            <div class="row py-4">
+                <div class="col d-flex align-items-center justify-content-center">
+                    <p>{{ value.copyright }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+

@@ -1,0 +1,26 @@
+<div class="container container-xl-custom py-5 my-5">
+    <div class="row justify-content-center">
+        <div class="col-xl-8 text-center mb-4">
+            <h2 class="font-weight-bold text-8 mb-3 appear-animation" data-appear-animation="fadeIn">Explore All Possibilities</h2>
+            <p class="line-height-9 text-4 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
+                <span class="opacity-7">Lorem ipsum dolor sit amet, consectetur adipiscing elit. ...</span>
+            </p>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-10 px-lg-5">
+            <div class="row">
+                {% for solution in [value.solution_1, value.solution_2] %}
+                    <div class="col-md-6 mb-2 pb-2 px-2 appear-animation" data-appear-animation="fadeInRightShorter">
+                        {% include "home/blocks/_solution_item.html" with solution=solution %}
+                    </div>
+                {% endfor %}
+                {% for solution in [value.solution_3, value.solution_4, value.solution_5] %}
+                    <div class="col-md-4 mb-2 pb-2 px-2 appear-animation" data-appear-animation="fadeInLeftShorter">
+                        {% include "home/blocks/_solution_item.html" with solution=solution %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
