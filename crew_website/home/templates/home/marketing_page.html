@@ -62,34 +62,37 @@
                         </div>
                     </div>
                 </div>
-                <hr class="solid my-5">
             </div>
 
         {% elif block.block_type == 'cta_section' %}
+        <div style="background-color: #f2f2f2;">
             <div class="container py-5">
                 <div class="row align-items-center py-4">
-                    <div class="col-lg-9">
-                        <div class="call-to-action-content">
-                            <h2 class="font-weight-normal text-7 mb-3">
-                                {{ block.value.heading }} <br>
-                                <span class="text-dark">{{ block.value.subheading }}</span>
-                            </h2>
-                            {% if block.value.description %}
-                                <p class="mb-2"><strong>{{ block.value.description }}</strong></p>
-                            {% endif %}
-                            <ul class="list-unstyled ps-3 mb-0">
-                                {% for feature in block.value.features %}
-                                    <li class="mb-1"><i class="fa fa-check-circle text-primary me-2"></i>{{ feature }}</li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 text-center text-lg-end mt-4 mt-lg-0">
-                        <a href="{{ block.value.button_link }}" target="_blank" class="btn btn-dark btn-lg text-3 font-weight-semibold px-4 py-3">
-                            {{ block.value.button_text }}
-                        </a>
+                <div class="col-lg-9">
+                    <div class="call-to-action-content">
+                    <h2 class="font-weight-normal text-7 mb-3">
+                        {{ block.value.heading }} <br>
+                        <span class="text-dark">{{ block.value.subheading }}</span>
+                    </h2>
+                    {% if block.value.description %}
+                        <p class="mb-2"><strong>{{ block.value.description }}</strong></p>
+                    {% endif %}
+                    <ul class="list-unstyled ps-3 mb-0">
+                        {% for feature in block.value.features %}
+                        <li class="mb-1">
+                            <i class="fa fa-check-circle text-primary me-2"></i>{{ feature }}
+                        </li>
+                        {% endfor %}
+                    </ul>
                     </div>
                 </div>
+                <div class="col-lg-3 text-center text-lg-end mt-4 mt-lg-0">
+                    <a href="{{ block.value.button_link }}" target="_blank" class="btn btn-dark btn-lg text-3 font-weight-semibold px-4 py-3">
+                    {{ block.value.button_text }}
+                    </a>
+                </div>
+                </div>
+            </div>
             </div>
 
         {% elif block.block_type == 'footer' %}

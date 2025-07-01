@@ -195,20 +195,9 @@ class ContactPage(Page):
 
     intro_text = RichTextField(blank=True)
 
-    subject_choices = models.TextField(
-        help_text="Enter comma-separated subject options", default="Option 1,Option 2,Option 3,Option 4"
-    )
-    checkbox_choices = models.TextField(
-        help_text="Enter comma-separated checkbox options", default="1,2,3"
-    )
-    radio_choices = models.TextField(
-        help_text="Enter comma-separated radio options", default="1,2,3"
-    )
-
     office_address = models.CharField(max_length=255, blank=True)
     office_phone = models.CharField(max_length=50, blank=True)
     office_email = models.EmailField(blank=True)
-    business_hours = RichTextField(blank=True)
 
     gallery_images = StreamField(
         [
@@ -230,57 +219,15 @@ class ContactPage(Page):
             FieldPanel("background_image"),
         ], heading="Header Section"),
 
-        FieldPanel("intro_text"),
-        MultiFieldPanel([
-            FieldPanel("subject_choices"),
-            FieldPanel("checkbox_choices"),
-            FieldPanel("radio_choices"),
-        ], heading="Form Options"),
-
         MultiFieldPanel([
             FieldPanel("office_address"),
             FieldPanel("office_phone"),
             FieldPanel("office_email"),
-            FieldPanel("business_hours"),
         ], heading="Office Info"),
 
         FieldPanel("gallery_images"),
-        MultiFieldPanel([
-            FieldPanel("map_api_key"),
-            FieldPanel("map_lat"),
-            FieldPanel("map_lng"),
-            FieldPanel("map_zoom"),
-        ], heading="Google Map Settings"),
     ]
     def serve(self, request):
-        arr_result = None
-
-        if request.method == "POST" and request.POST.get("emailSent"):
-            subject = request.POST.get("subject", "Contact form submission")
-            message = ""
-
-            for key, value in request.POST.items():
-                if key != "emailSent":
-                    label = key.capitalize()
-                    safe_value = escape(value).replace("\n", "<br>")
-                    message += f"{label}: {safe_value}<br>"
-
-            try:
-                email = EmailMessage(
-                    subject=subject,
-                    body=message,
-                    from_email="you@example.com",
-                    to=["you@example.com"]
-                )
-                email.content_subtype = "html"
-                if request.FILES.get("attachment"):
-                    attachment = request.FILES["attachment"]
-                    email.attach(attachment.name, attachment.read(), attachment.content_type)
-                email.send()
-                arr_result = {"response": "success"}
-            except Exception as e:
-                arr_result = {"response": "error", "errorMessage": str(e)}
-
         context = self.get_context(request)
-        context["arrResult"] = arr_result
         return render(request, "contact/contact_page.html", context)
+

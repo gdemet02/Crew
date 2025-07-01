@@ -31,14 +31,6 @@
             <li><i class="fas fa-envelope top-6"></i> <strong>Email:</strong> <a href="mailto:{{ page.office_email }}">{{ page.office_email }}</a></li>
           {% endif %}
         </ul>
-        <h4 class="text-primary pt-5">Business <strong>Hours</strong></h4>
-        {% if page.business_hours %}
-          <div class="mt-2">
-            {{ page.business_hours|richtext }}
-          </div>
-        {% else %}
-          <p class="text-muted">Business hours not set yet.</p>
-        {% endif %}
       </div>
     </div>
   </div>

@@ -55,7 +55,7 @@ class FooterBlock(blocks.StructBlock):
 
     address = blocks.CharBlock(required=False)
     phone = blocks.CharBlock(required=False)
-    email = blocks.EmailBlock(required=False)
+    email = blocks.CharBlock(required=False)
 
     link_1 = blocks.StructBlock([
         ("label", blocks.CharBlock()),

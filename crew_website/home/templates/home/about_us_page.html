@@ -59,34 +59,35 @@
                             <h2 class="text-7">Meet <strong>Our Team</strong></h2>
                         </div>
                     </div>
-                    <div class="row pb-4 mb-2">
+                    <div class="row pb-4 mb-2 justify-content-center">
                         {% for member in block.value %}
-                            <div class="col-sm-6 col-lg-3 mb-4">
+                            <div class="col-sm-6 col-lg-3 mb-4 text-center">
                                 <span class="thumb-info border-radius-0">
                                     <span class="thumb-info-wrapper">
-                                        {% image member.image original as team_img %}
-                                        <img src="{{ team_img.url }}" class="img-fluid" alt="{{ member.name }}">
-                                        <span class="thumb-info-title">
-                                            <span class="thumb-info-inner">{{ member.name }}</span>
-                                            <span class="thumb-info-type">{{ member.role }}</span>
-                                        </span>
+                                    {% image member.image original as team_img %}
+                                    <img src="{{ team_img.url }}" class="img-fluid" alt="{{ member.name }}">
+                                    <span class="thumb-info-title">
+                                        <span class="thumb-info-inner">{{ member.name }}</span>
+                                        <span class="thumb-info-type">{{ member.role }}</span>
+                                    </span>
                                     </span>
                                     <span class="thumb-info-caption">
-                                        <p>{{ member.description }}</p>
-                                        <span class="thumb-info-social-icons">
-                                            {% if member.facebook %}
-                                                <a href="{{ member.facebook }}"><i class="fab fa-facebook-f"></i></a>
-                                            {% endif %}
-                                            {% if member.twitter %}
-                                                <a href="{{ member.twitter }}"><i class="fab fa-x-twitter"></i></a>
-                                            {% endif %}
-                                            {% if member.linkedin %}
-                                                <a href="{{ member.linkedin }}"><i class="fab fa-linkedin-in"></i></a>
-                                            {% endif %}
-                                        </span>
+                                    <p>{{ member.description }}</p>
+                                    <span class="thumb-info-social-icons">
+                                        {% if member.facebook %}
+                                        <a href="{{ member.facebook }}"><i class="fab fa-facebook-f"></i></a>
+                                        {% endif %}
+                                        {% if member.twitter %}
+                                        <a href="{{ member.twitter }}"><i class="fab fa-x-twitter"></i></a>
+                                        {% endif %}
+                                        {% if member.linkedin %}
+                                        <a href="{{ member.linkedin }}"><i class="fab fa-linkedin-in"></i></a>
+                                        {% endif %}
+                                    </span>
                                     </span>
                                 </span>
-                            </div>
+                                </div>
+
                         {% endfor %}
                     </div>
                 </div>
