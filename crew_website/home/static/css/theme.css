@@ -15787,17 +15787,7 @@ html body .rounded-circle {
 	padding: 10px 20px 6px 20px;
 }
 
-#footer .footer-ribbon:before {
-	border-right: 10px solid #646464;
-	border-top: 16px solid transparent;
-	content: "";
-	display: block;
-	height: 0;
-	right: 100%;
-	position: absolute;
-	top: 0;
-	width: 7px;
-}
+
 
 #footer .footer-ribbon span {
 	color: var(--light);
