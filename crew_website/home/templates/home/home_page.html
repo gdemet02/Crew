@@ -37,20 +37,28 @@
                 <div class="owl-item position-relative">
                   {% image slide.image fill-1920x1080 as bg_img %}
                   <div class="background-image-wrapper position-absolute top-0 left-0 right-0 bottom-0 animated kenBurnsToRightTop"
-                       style="background-image: url('{{ bg_img.url }}'); background-size: cover; background-position: center; animation-duration: 20s;">
+                      style="background-image: url('{{ bg_img.url }}'); background-size: cover; background-position: center; animation-duration: 20s;">
                   </div>
                   <div class="container position-relative z-index-3 h-100">
                     <div class="row justify-content-center align-items-center h-100">
                       <div class="col-lg-7 text-center mb-4 pb-5 pb-lg-0">
-                        <h1 class="text-color-light font-weight-bold text-11 text-sm-13 text-md-14 line-height-1 position-relative mb-3 pb-1 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1200">
-                          Crew
+                        <h1 class="text-color-light font-weight-bold text-11 text-sm-13 text-md-14 line-height-1 position-relative mb-3 pb-1 appear-animation"
+                            data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1200">
+                          {{ slide.heading }}
                         </h1>
-                        <a href="hr" class="btn btn-gradient custom-btn-effect-1 custom-border-radius-1 d-inline-flex align-items-center font-weight-semibold text-3-5 btn-px-5 btn-py-3 appear-animation"
-                           data-hash data-hash-offset="0" data-hash-offset-lg="32" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1600" data-appear-animation-duration="1.7s">
-                          GET STARTED
-                          <img width="15" height="15" src="{% static 'img/demos/one-page-agency/icons/arrow-down.svg' %}" alt=""
-                               data-icon data-plugin-options="{'onlySVG': true, 'removeClassAfterInit': 'fadeIn', 'extraClass': 'svg-fill-color-light position-relative bottom-1 ms-4'}" />
-                        </a>
+                        {% if slide.subheading %}
+                          <p class="text-color-light appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1400">
+                            {{ slide.subheading }}
+                          </p>
+                        {% endif %}
+                        {% if slide.button_text and slide.button_link %}
+                          <a href="{{ slide.button_link }}" class="btn btn-gradient custom-btn-effect-1 custom-border-radius-1 d-inline-flex align-items-center font-weight-semibold text-3-5 btn-px-5 btn-py-3 appear-animation"
+                            data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1600" data-appear-animation-duration="1.7s">
+                            {{ slide.button_text }}
+                            <img width="15" height="15" src="{% static 'img/demos/one-page-agency/icons/arrow-down.svg' %}" alt=""
+                                data-icon data-plugin-options="{'onlySVG': true, 'removeClassAfterInit': 'fadeIn', 'extraClass': 'svg-fill-color-light position-relative bottom-1 ms-4'}" />
+                          </a>
+                        {% endif %}
                       </div>
                     </div>
                   </div>

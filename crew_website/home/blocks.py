@@ -6,6 +6,10 @@ from wagtail.images.blocks import ImageChooserBlock
 
 class HeroCarouselImageBlock(blocks.StructBlock):
     image = ImageChooserBlock(required=True, help_text="Select the image for this carousel slide.")
+    heading = blocks.CharBlock(required=True, help_text="Main heading text")
+    subheading = blocks.CharBlock(required=False, help_text="Optional subheading text")
+    button_text = blocks.CharBlock(required=False, help_text="Text on the button")
+    button_link = blocks.URLBlock(required=False, help_text="URL the button will link to")
 
     class Meta:
         template = "home/blocks/hero_carousel_image.html"
